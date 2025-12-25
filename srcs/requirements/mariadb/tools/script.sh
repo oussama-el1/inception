@@ -2,7 +2,11 @@
 
 service mariadb start
 
-sleep 5
+echo "Waiting for MariaDB to be ready..."
+until mysqladmin ping -hlocalhost --silent || mysqladmin ping -hlocalhost -p"$MYSQL_ROOT_PASSWORD" --silent; do
+    sleep 1
+done
+echo "MariaDB is up and running!"
 
 if [ ! -d "/var/lib/mysql/$MYSQL_DATABASE" ]; then
 
@@ -25,5 +29,5 @@ fi
 
 mysqladmin -u root -p"$MYSQL_ROOT_PASSWORD" shutdown
 
-echo "Starting MariaDB..."
+echo "Starting MariaDB Safe Mode..."
 exec mysqld_safe
