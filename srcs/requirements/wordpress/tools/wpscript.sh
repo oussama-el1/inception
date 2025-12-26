@@ -32,7 +32,14 @@ if [ ! -f /var/www/html/wp-config.php ]; then
         --role=author \
         --user_pass=$WP_PASSWORD \
         --allow-root
-        
+
+    wp plugin install redis-cache --activate --allow-root
+
+    wp config set WP_REDIS_HOST redis --allow-root
+    wp config set WP_REDIS_PORT 6379 --allow-root
+
+    wp redis enable --allow-root
+
     echo "WordPress installed successfully!"
 fi
 

@@ -50,6 +50,14 @@ services:
     depends_on:
       - wordpress
 
+  redis:
+      container_name: redis
+      image: redis
+      build:
+        context: requirements/bonus/redis
+      restart: always
+      networks:
+        - inception
 volumes:
   mariadb_data:
     driver: local
