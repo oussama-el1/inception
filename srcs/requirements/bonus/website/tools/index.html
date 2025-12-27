@@ -3,114 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inception Bonus</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
-
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.7);
-            --primary: #38bdf8;
-            --secondary: #c084fc;
-            --text: #f8fafc;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'JetBrains Mono', monospace;
-            background-color: var(--bg-color);
-            color: var(--text);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(192, 132, 252, 0.1) 0%, transparent 20%);
-        }
-
-        .container {
-            position: relative;
-            z-index: 10;
-        }
-
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 3rem;
-            border-radius: 1.5rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            max-width: 400px;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover { transform: translateY(-5px); }
-
-        .glitch {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        p { color: #94a3b8; margin-bottom: 2rem; line-height: 1.6; }
-
-        .stats {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding: 1rem 0;
-        }
-
-        .stat-item h3 { color: var(--text); font-size: 1.2rem; }
-        .stat-item span { font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
-
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: #fff;
-            text-decoration: none;
-            border-radius: 99px;
-            font-weight: 700;
-            transition: opacity 0.3s;
-        }
-        .btn:hover { opacity: 0.9; box-shadow: 0 0 15px rgba(56, 189, 248, 0.5); }
-    </style>
+    <title>Oussama EL Hadraoui - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <h1 class="glitch">oel-hadr</h1>
-            <p>System Administrator &<br>Full Stack Developer</p>
+    <header class="hero" id="home">
+        <div class="hero-container">
             
-            <div class="stats">
-                <div class="stat-item">
-                    <h3>42</h3>
-                    <span>Level</span>
-                </div>
-                <div class="stat-item">
-                    <h3>100%</h3>
-                    <span>Uptime</span>
-                </div>
-                <div class="stat-item">
-                    <h3>Docker</h3>
-                    <span>Master</span>
+            <div class="hero-text">
+                <h1 class="glitch-text" data-text="Oussama EL Hadraoui">Oussama EL Hadraoui</h1>
+                <p class="subtitle">Software Development Student | Low-Level & Backend Programming Enthusiast | 1337 Student</p>
+                <div class="hero-buttons">
+                    <a href="#about" class="btn primary-btn">Explore My Work</a>
+                    <a href="#contact" class="btn secondary-btn">Contact Me</a>
                 </div>
             </div>
 
-            <a href="#" class="btn">Contact Me</a>
+            <div class="hero-image-wrapper">
+                <img src="images/oussama.png" alt="Oussama EL Hadraoui" class="profile-img">
+                <div class="img-glow"></div>
+            </div>
+
         </div>
+    </header>
+
+    <div class="container">
+        <section id="stats-42" class="section card">
+            <h2 class="section-title">&lt;42 Network Progress /&gt;</h2>
+            <div class="stats-grid" id="api-data-container">
+                <div class="stat-item">
+                    <div class="stat-circle loading"></div>
+                    <h3>Level</h3>
+                    <p class="stat-value" id="stat-level">---</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-bar-container loading">
+                        <div class="stat-bar" id="stat-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <h3>Current Project Progress</h3>
+                    <p class="stat-value" id="stat-progress">---</p>
+                </div>
+                <div class="stat-item">
+                    <span class="campus-icon loading">🏛️</span>
+                    <h3>Campus</h3>
+                    <p class="stat-value" id="stat-campus">---</p>
+                </div>
+            </div>
+            <p class="api-note">* Note: Data is currently mocked for demonstration. A backend is required for real-time API integration.</p>
+        </section>
+
+        <section id="about" class="section card">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <p>
+                    I'm a dedicated and curious software development student, currently enrolled at 1337, part of the 42 Network—a peer-to-peer, project-based school focused on advanced coding and real-world problem solving. I specialize in backend development and low-level programming using C and C++.
+                </p>
+                <p>
+                    I am also completing the ALX Software Engineering Program, a rigorous 15-month training focused on full-stack development and professional engineering practices. I'm passionate about building efficient, robust systems, whether through memory-level programming or by developing scalable backend solutions.
+                </p>
+            </div>
+        </section>
+
+        <section id="education" class="section">
+            <h2 class="section-title">Education</h2>
+            <div class="timeline">
+                <div class="timeline-item card">
+                    <span class="date">Oct 2024 - Present</span>
+                    <h3>1337 Coding School (42 Network)</h3>
+                    <p>In-depth computer science and software engineering.</p>
+                </div>
+                <div class="timeline-item card">
+                    <span class="date">June 2023 - Oct 2024</span>
+                    <h3>ALX Africa</h3>
+                    <p>Software Engineering Student. A rigorous 15-month program with a specialization in backend development.</p>
+                </div>
+                <div class="timeline-item card">
+                    <span class="date">Sept 2022 - June 2024</span>
+                    <h3>Ecole Supérieure de Technologie Beni Mellal</h3>
+                    <p>Associate's degree, Computer Science (DUT). Developed strong fundamentals in computer science and programming.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <h2 class="section-title">Areas of Expertise</h2>
+            <div class="project-grid">
+                <div class="project-card card">
+                    <h3>Backend API Development</h3>
+                    <p>Built RESTful APIs using Node.js and Express. Integrated SQL (PostgreSQL) and NoSQL (MongoDB) databases for data persistence.</p>
+                    <span class="tag">Node.js</span> <span class="tag">Express</span> <span class="tag">SQL/NoSQL</span>
+                </div>
+                <div class="project-card card">
+                    <h3>Low-Level Programming</h3>
+                    <p>Gained in-depth experience in low-level programming using C, focusing on memory management and efficient system interaction.</p>
+                    <span class="tag">C</span> <span class="tag">Systems Programming</span>
+                </div>
+                <div class="project-card card">
+                    <h3>System Design & DevOps</h3>
+                    <p>Applied DevOps principles to design and deploy backend infrastructure, ensuring scalable and robust web applications. Integrated tools like Redis for performance.</p>
+                    <span class="tag">DevOps</span> <span class="tag">Redis</span> <span class="tag">Infrastructure</span>
+                </div>
+            </div>
+        </section>
     </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Beni Mellal, Béni Mellal-Khénifra, Morocco</p>
+            <p>
+                <a href="mailto:elhadraoui284@gmail.com">elhadraoui284@gmail.com </a> |
+                <a href="tel:0641707742">0641707742</a>
+            </p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/oussama-el-hadraoui" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

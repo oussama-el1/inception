@@ -1,0 +1,525 @@
+/* =========================================
+   1. VARIABLES & GLOBAL RESETS
+   ========================================= */
+:root {
+    /* Deep black background to match your photo */
+    --bg-color: #050505;
+    
+    /* Glassmorphism card background */
+    --card-bg: rgba(25, 25, 25, 0.7);
+    
+    /* Brand Colors */
+    --primary: #38bdf8;   /* Light Blue */
+    --secondary: #c084fc; /* Soft Purple */
+    
+    /* Text Colors */
+    --text-light: #f8fafc;
+    --text-muted: #9ca3af;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'JetBrains Mono', monospace;
+    background-color: var(--bg-color);
+    color: var(--text-light);
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevents horizontal scroll from animations */
+}
+
+/* =========================================
+   2. HERO SECTION (SPLIT LAYOUT)
+   ========================================= */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-color);
+    position: relative;
+    overflow: hidden;
+    padding-top: 2rem;
+}
+
+/* Background subtle glow effect */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1100px;
+    padding: 2rem;
+    z-index: 1;
+    gap: 4rem;
+}
+
+/* --- Left Side: Text --- */
+.hero-text {
+    flex: 1;
+    text-align: left;
+    opacity: 0; /* Starts hidden for animation */
+    animation: slideInLeft 1s ease-out forwards;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    border-radius: 99px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.primary-btn {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: var(--text-light);
+    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(56, 189, 248, 0.5);
+}
+
+.secondary-btn {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-light);
+    background: transparent;
+}
+
+.secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--primary);
+    transform: translateY(-3px);
+}
+
+/* --- Right Side: Image --- */
+.hero-image-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    opacity: 0; /* Starts hidden for animation */
+    animation: slideInRight 1s ease-out forwards 0.3s; /* 0.3s delay */
+}
+
+.profile-img {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    position: relative;
+    z-index: 2;
+    /* Masks the bottom of the image to blend into the black background */
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    /* Soft glow shadow */
+    filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.2));
+    transition: filter 0.3s ease;
+}
+
+/* Image Glow Effect on Hover */
+.hero-image-wrapper:hover .profile-img {
+    filter: drop-shadow(0 0 40px rgba(192, 132, 252, 0.4));
+}
+
+.img-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(circle, var(--primary) 0%, transparent 60%);
+    opacity: 0.15;
+    filter: blur(50px);
+    z-index: 1;
+}
+
+/* =========================================
+   3. GLITCH TEXT EFFECT (REPAIRED)
+   ========================================= */
+.glitch-text {
+    font-size: 3.5rem;
+    font-weight: 700;
+    position: relative;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -2px;
+}
+
+/* Creates the two duplicate layers */
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Blue Glitch Layer */
+.glitch-text::before {
+    left: 2px;
+    text-shadow: -1px 0 #00ffff;
+    background: var(--bg-color);
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+    animation: noise-anim-2 3s infinite linear alternate-reverse;
+}
+
+/* Pink Glitch Layer */
+.glitch-text::after {
+    left: -2px;
+    text-shadow: -1px 0 #ff00c1;
+    background: var(--bg-color);
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+    animation: noise-anim 2s infinite linear alternate-reverse;
+}
+
+/* Glitch Keyframes */
+@keyframes noise-anim {
+    0% { clip: rect(10px, 9999px, 31px, 0); }
+    20% { clip: rect(65px, 9999px, 89px, 0); }
+    40% { clip: rect(22px, 9999px, 6px, 0); }
+    60% { clip: rect(89px, 9999px, 12px, 0); }
+    80% { clip: rect(4px, 9999px, 78px, 0); }
+    100% { clip: rect(33px, 9999px, 11px, 0); }
+}
+
+@keyframes noise-anim-2 {
+    0% { clip: rect(45px, 9999px, 12px, 0); }
+    20% { clip: rect(2px, 9999px, 67px, 0); }
+    40% { clip: rect(12px, 9999px, 3px, 0); }
+    60% { clip: rect(78px, 9999px, 45px, 0); }
+    80% { clip: rect(23px, 9999px, 88px, 0); }
+    100% { clip: rect(9px, 9999px, 2px, 0); }
+}
+
+/* =========================================
+   4. SECTIONS & LAYOUT
+   ========================================= */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    margin-top: -5rem; /* Pulls content slightly up */
+    position: relative;
+    z-index: 10;
+}
+
+.section {
+    margin-bottom: 5rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 2.5rem;
+    color: var(--primary);
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+/* =========================================
+   5. GLASSMORPHISM CARDS
+   ========================================= */
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Hover Effect for Cards: Lift Up + Glow */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    border-color: rgba(56, 189, 248, 0.3);
+}
+
+/* =========================================
+   6. STATS SECTION (42 API)
+   ========================================= */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    text-align: center;
+}
+
+.stat-item h3 {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.stat-bar-container {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 1rem auto;
+    width: 80%;
+}
+
+.stat-bar {
+    height: 100%;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    width: 0%; /* JS will animate this */
+    transition: width 1s ease-in-out;
+}
+
+.campus-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.api-note {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 1.5rem;
+    font-style: italic;
+    opacity: 0.7;
+}
+
+/* Loading Pulse Animation */
+.loading {
+    animation: pulse 1.5s infinite ease-in-out;
+}
+@keyframes pulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+/* =========================================
+   7. TIMELINE (EDUCATION)
+   ========================================= */
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.timeline-item {
+    border-left: 3px solid var(--primary);
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+/* Dot on the timeline line */
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -9px;
+    top: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--secondary);
+    box-shadow: 0 0 10px var(--secondary);
+}
+
+.date {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--secondary);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+/* =========================================
+   8. PROJECTS GRID
+   ========================================= */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.project-card h3 {
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+.project-card p {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.tag {
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    background: rgba(56, 189, 248, 0.1);
+    color: var(--primary);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: 50px;
+    font-size: 0.75rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.tag:hover {
+    background: var(--primary);
+    color: #000;
+    border-color: var(--primary);
+}
+
+/* =========================================
+   9. FOOTER
+   ========================================= */
+.footer {
+    padding: 4rem 2rem;
+    text-align: center;
+    background: rgba(10, 10, 10, 0.9);
+    margin-top: auto;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer-content p {
+    margin-bottom: 0.8rem;
+    color: var(--text-muted);
+}
+
+.footer a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer a:hover {
+    color: var(--secondary);
+    text-decoration: underline;
+}
+
+/* =========================================
+   10. GLOBAL ANIMATIONS
+   ========================================= */
+
+/* Floating Animation for Image */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Entrance: Slide In From Left */
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Entrance: Slide In From Right */
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* =========================================
+   11. RESPONSIVE DESIGN (MOBILE)
+   ========================================= */
+@media (max-width: 900px) {
+    .hero-container {
+        flex-direction: column-reverse; /* Image moves to top */
+        text-align: center;
+        padding-top: 6rem;
+        gap: 3rem;
+    }
+    
+    .hero-text {
+        text-align: center;
+    }
+    
+    .subtitle {
+        margin: 0 auto 2rem auto;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+    }
+    
+    .profile-img {
+        max-width: 280px; /* Smaller image on mobile */
+    }
+    
+    .glitch-text {
+        font-size: 2.5rem;
+    }
+    
+    .container {
+        margin-top: -2rem;
+        padding: 1rem;
+    }
+}
+
+/* =========================================
+   ADD THIS TO THE BOTTOM OF STYLE.CSS
+   ========================================= */
+
+/* Floating Animation (Makes image bob up and down) */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Entrance: Slide In From Left (For Text) */
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Entrance: Slide In From Right (For Image) */
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
