@@ -38,6 +38,11 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     wp config set WP_REDIS_HOST redis --allow-root
     wp config set WP_REDIS_PORT 6379 --allow-root
 
+    if ! grep -q "WP_HOME" /var/www/html/wp-config.php; then
+        sed -i "/stop editing/i define('WP_HOME', 'https://' . \$_SERVER['HTTP_HOST']);" /var/www/html/wp-config.php
+        sed -i "/stop editing/i define('WP_SITEURL', 'https://' . \$_SERVER['HTTP_HOST']);" /var/www/html/wp-config.php
+    fi
+
     wp redis enable --allow-root
 
     echo "WordPress installed successfully!"
