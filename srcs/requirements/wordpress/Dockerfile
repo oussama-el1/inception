@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN mkdir -p /run/php
 
-COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+RUN sed -i 's|listen = /run/php/php7.4-fpm.sock|listen = 9000|g' /etc/php/7.4/fpm/pool.d/www.conf
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x wp-cli.phar \
