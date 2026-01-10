@@ -25,12 +25,7 @@ The project requires a local DNS mapping to route the domain to your local infra
 
 ### Secrets Configuration (.env)
 The `docker-compose.yml` relies on environment variables for sensitive data. These are **not** committed to Git.
-1.  Locate the example file at the project root: `.env.example`.
-2.  Copy it to the source directory:
-    ```bash
-    cp .env.example srcs/.env
-    ```
-3.  Edit `srcs/.env` and fill in the required variables (ensure strong passwords):
+1.  Create `srcs/.env` and fill in the required variables (ensure strong passwords):
     ```ini
     DOMAIN_NAME=oel-hadr.42.fr
     MYSQL_DATABASE=wordpress

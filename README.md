@@ -14,15 +14,14 @@ These services run in isolated containers but communicate seamlessly via a dedic
 
 ### Prerequisites
 * **OS:** Linux (Debian/Ubuntu) or a Virtual Machine.
-* **Tools:** Docker Engine, Docker Compose (v2), Make, Git.
+* **Tools:** Docker Engine, Docker Compose, Make, Git.
 * **Permissions:** Root or `sudo` privileges are required to manage Docker.
 
 ### Installation & Execution
 1.  **Setup Environment Variables:**
     Copy the example template and fill in your secrets.
     ```bash
-    cp .env.example srcs/.env
-    nano srcs/.env
+    vi srcs/.env
     # Define: DOMAIN_NAME, MYSQL_ROOT_PASSWORD, WP_ADMIN_PASSWORD, etc.
     ```
 
@@ -57,30 +56,29 @@ This project uses **Docker Compose** to orchestrate services. Below are the key 
 ### 2. Secrets vs Environment Variables
 * **Environment Variables:** Stored in plaintext `.env` files and injected into containers at runtime. Easier to set up but less secure if the `.env` file leaks.
 * **Docker Secrets:** Encrypted data stored in the Docker Swarm manager, mounted as files (`/run/secrets/my_pass`) inside the container.
-* **Choice:** For this project, we use **Environment Variables** (`.env`) as it is the standard for Docker Compose v2 in non-swarm environments, provided the `.env` file is included in `.gitignore`.
+* **Choice:** For this project, we use **Environment Variables** (`.env`) as it is the standard for Docker Compos in non-swarm environments, provided the `.env` file is included in `.gitignore`.
 
 ### 3. Docker Network vs Host Network
 * **Host Network:** The container shares the host's IP and port space directly. If NGINX listens on 443, it occupies port 443 on the actual machine. No isolation.
 * **Docker Network (Bridge):** Creates a private internal network. Containers get their own internal IPs and can talk to each other by name (DNS). Only specific ports are "published" to the outside world.
-* **Choice:** We use a **Custom Bridge Network (`inception`)**. This allows MariaDB and WordPress to talk privately (secure) while only exposing NGINX to the host.
+* **Choice:** We use a **Custom Bridge Network**. This allows MariaDB and WordPress to talk privately (secure) while only exposing NGINX to the host.
 
 ### 4. Docker Volumes vs Bind Mounts
 * **Docker Volumes:** Managed entirely by Docker (`/var/lib/docker/volumes/`). Easier to back up and migrate, but harder to access directly from the host shell.
 * **Bind Mounts:** Map a specific file/folder on the Host Machine directly to the container.
-* **Choice:** We use **Bind Mounts** (via `driver_opts` in Compose) to store data in `/home/oel-hadr/data/`. This strictly follows the subject requirement to have data accessible at a specific path on the VM.
+* **Choice:** We use **Bind Mounts** to store data in `/home/oel-hadr/data/`. This strictly follows the subject requirement to have data accessible at a specific path on the VM.
 
 
-## Resources & AI Usage
+## Resources
 
 ### References
 * [Docker Deep Dive by Nigel Poulton ](https://z-library.ec/book/117959992/c24fe3?ts=0745) - Docker Deep Dive: Zero to Docker in a Single Book.
 * [Docker Documentation](https://docs.docker.com/) - The official guide for Dockerfiles and Compose.
-* [NGINX Documentation](https://nginx.org/en/docs/) - For configuring TLS and FastCGI.
 * [WP-CLI Handbook](https://make.wordpress.org/cli/handbook/) - For automating WordPress installation.
 * [php-fpm with nginx](https://www.digitalocean.com/community/tutorials/php-fpm-nginx) use the php-fpm with nginx
+* [NGINX Documentation](https://nginx.org/en/docs/) - For configuring TLS and FastCGI.
 
 ### AI Usage
 * **Debugging:** Identifying syntax errors in NGINX configuration files and Docker Compose YAML indentation issues.
-* **Script Logic:** Optimizing the `mariadb` startup script to replace `sleep` loops with robust `mysqladmin ping` checks.
 * **Documentation:** assisting in structuring this README to ensure all technical comparisons (VM vs Docker, etc.) were accurate and clear.
 * **Refactoring:** Converting complex shell commands into cleaner, readable scripts for the `tools/` directories.

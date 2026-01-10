@@ -1,11 +1,5 @@
 #!/bin/bash
 
-echo "Waiting for MariaDB..."
-while ! mysqladmin ping -h"mariadb" --silent; do
-    sleep 1
-done
-echo "MariaDB is up!"
-
 if [ ! -f /var/www/html/wp-config.php ]; then
     echo "WordPress not found. Installing..."
 
