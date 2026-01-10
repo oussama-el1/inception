@@ -1,6 +1,4 @@
 ./srcs/.env
 .env
 .DS_Store
-Thumbs.db
-data/
-.vscode/g
+.vscode/

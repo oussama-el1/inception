@@ -6,7 +6,7 @@ This document outlines the technical details required to set up, build, manage, 
 To build this project from scratch, your development environment must meet the following requirements.
 
 ### Prerequisites
-* **Operating System:** Linux (Debian 12 Bookworm or Bullseye recommended) running in a Virtual Machine.
+* **Operating System:** Linux (Debian 12 Bookworm or Bookworm recommended) running in a Virtual Machine.
 * **Docker Engine:** Installed and running.
 * **Docker Compose:** Version v2.0 or higher.
 * **Make:** GNU Make utility.

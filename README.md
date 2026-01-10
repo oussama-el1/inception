@@ -3,7 +3,7 @@
 ## Description
 Inception is a System Administration project that aims to deepen the understanding of containerization using **Docker**. The goal is to set up a complete microservices infrastructure on a Linux Virtual Machine.
 
-Instead of pulling ready-made images, we build our own Docker images from scratch (using Debian Bullseye) to orchestrate a secure network connecting three distinct services:
+Instead of pulling ready-made images, we build our own Docker images from scratch (using Debian Bookworm) to orchestrate a secure network connecting three distinct services:
 1.  **NGINX:** Acts as the secure entry point (TLSv1.2/1.3) and web server.
 2.  **WordPress:** Runs the PHP-FPM application processor.
 3.  **MariaDB:** Stores the application data.
