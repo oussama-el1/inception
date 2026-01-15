@@ -4,7 +4,7 @@ services:
     image: mariadb:1337
     build:
       context: requirements/mariadb
-    restart: always
+    restart: on-failure
     env_file:
       - .env
     volumes:
@@ -19,7 +19,7 @@ services:
     image: wordpress:1337
     build:
       context: requirements/wordpress
-    restart: always
+    restart: on-failure
     env_file:
       - .env
     volumes:
@@ -36,7 +36,7 @@ services:
     image: nginx:1337
     build:
       context: requirements/nginx
-    restart: always
+    restart: on-failure
     ports:
       - "443:443"
     env_file:
@@ -53,7 +53,7 @@ services:
   #     image: redis:1337
   #     build:
   #       context: requirements/bonus/redis
-  #     restart: always
+  #     restart: on-failure
   #     networks:
   #       - inception
 
@@ -62,7 +62,7 @@ services:
   #   image: ftp:1337
   #   build:
   #     context: requirements/bonus/ftp
-  #   restart: always
+  #   restart: on-failure
   #   env_file:
   #     - .env
   #   volumes:
@@ -78,7 +78,7 @@ services:
   #   image: adminer:1337
   #   build:
   #     context: requirements/bonus/adminer
-  #   restart: always
+  #   restart: on-failure
   #   ports:
   #     - "8080:8080"
   #   networks:
@@ -89,7 +89,7 @@ services:
   #   image: website:1337
   #   build:
   #     context: requirements/bonus/website
-  #   restart: always
+  #   restart: on-failure
   #   ports:
   #     - "8000:8000"
   #   networks:
@@ -100,7 +100,7 @@ services:
   #   image: glances:1337
   #   build:
   #     context: requirements/bonus/glances
-  #   restart: always
+  #   restart: on-failure
   #   ports:
   #     - "61208:61208"
   #   networks:
