@@ -1,7 +1,7 @@
 services:
   mariadb:
     container_name: mariadb
-    image: mariadb
+    image: mariadb:1337
     build:
       context: requirements/mariadb
     restart: always
@@ -16,7 +16,7 @@ services:
 
   wordpress:
     container_name: wordpress
-    image: wordpress
+    image: wordpress:1337
     build:
       context: requirements/wordpress
     restart: always
@@ -33,7 +33,7 @@ services:
 
   nginx:
     container_name: nginx
-    image: nginx
+    image: nginx:1337
     build:
       context: requirements/nginx
     restart: always
@@ -48,63 +48,63 @@ services:
     depends_on:
       - wordpress
 
-  redis:
-      container_name: redis
-      image: redis
-      build:
-        context: requirements/bonus/redis
-      restart: always
-      networks:
-        - inception
+  # redis:
+  #     container_name: redis
+  #     image: redis:1337
+  #     build:
+  #       context: requirements/bonus/redis
+  #     restart: always
+  #     networks:
+  #       - inception
 
-  ftp:
-    container_name: ftp
-    image: ftp
-    build:
-      context: requirements/bonus/ftp
-    restart: always
-    env_file:
-      - .env
-    volumes:
-      - wordpress_data:/var/www/html
-    networks:
-      - inception
-    ports:
-      - "21:21"
-      - "21100-21105:21100-21105"
+  # ftp:
+  #   container_name: ftp
+  #   image: ftp:1337
+  #   build:
+  #     context: requirements/bonus/ftp
+  #   restart: always
+  #   env_file:
+  #     - .env
+  #   volumes:
+  #     - wordpress_data:/var/www/html
+  #   networks:
+  #     - inception
+  #   ports:
+  #     - "21:21"
+  #     - "21100-21105:21100-21105"
 
-  adminer:
-    container_name: adminer
-    image: adminer
-    build:
-      context: requirements/bonus/adminer
-    restart: always
-    ports:
-      - "8080:8080"
-    networks:
-      - inception
+  # adminer:
+  #   container_name: adminer
+  #   image: adminer:1337
+  #   build:
+  #     context: requirements/bonus/adminer
+  #   restart: always
+  #   ports:
+  #     - "8080:8080"
+  #   networks:
+  #     - inception
 
-  website:
-    container_name: website
-    image: website
-    build:
-      context: requirements/bonus/website
-    restart: always
-    ports:
-      - "8000:8000"
-    networks:
-      - inception
+  # website:
+  #   container_name: website
+  #   image: website:1337
+  #   build:
+  #     context: requirements/bonus/website
+  #   restart: always
+  #   ports:
+  #     - "8000:8000"
+  #   networks:
+  #     - inception
 
-  glances:
-    container_name: glances
-    image: glances
-    build:
-      context: requirements/bonus/glances
-    restart: always
-    ports:
-      - "61208:61208"
-    networks:
-      - inception
+  # glances:
+  #   container_name: glances
+  #   image: glances:1337
+  #   build:
+  #     context: requirements/bonus/glances
+  #   restart: always
+  #   ports:
+  #     - "61208:61208"
+  #   networks:
+  #     - inception
 
 volumes:
   mariadb_data:
