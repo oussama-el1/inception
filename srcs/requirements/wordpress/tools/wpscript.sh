@@ -1,5 +1,12 @@
 #!/bin/bash
 
+echo "Waiting for MariaDB to be ready..."
+while ! mariadb -h mariadb -u$MYSQL_USER -p$MYSQL_PASSWORD -e "SELECT 1;" > /dev/null 2>&1; do
+    echo "MariaDB is not ready yet... Retrying in 3 seconds"
+    sleep 3
+done
+echo "MariaDB is connected!"
+
 if [ ! -f /var/www/html/wp-config.php ]; then
     echo "WordPress not found. Installing..."
 

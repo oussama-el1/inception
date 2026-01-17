@@ -8,8 +8,8 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install --upgrade pip && \
-    pip3 install "glances[web]"
+RUN pip3 install --upgrade pip --break-system-packages && \
+    pip3 install "glances[web]" --break-system-packages
 
 COPY conf/glances.conf /etc/glances.conf
 
